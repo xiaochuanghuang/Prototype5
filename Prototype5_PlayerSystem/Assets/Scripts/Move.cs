@@ -1,77 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Move : MonoBehaviour
 {
-    private Transform bodyTransform;
-    private Rigidbody rigidBody;
-    private Animator bodyAnimator;
+
+    public AudioSource source;
+    public AudioClip clip;
+
+    public Transform bodyTransform { get; set; }
+    public Rigidbody rigidBody { get; set; }
+    public Animator bodyAnimator { get; set; }
+
     public float walkSpeed = 0.1f;
     public float rotateSpeed = 0.001f;
     public float rotateForce = 0.01f;
 
-    AnimatorStateInfo states;
+   public AnimatorStateInfo states;
     static int idleState = Animator.StringToHash("Idle");
     static int moveState = Animator.StringToHash("Walk");
-    static int JumpState = Animator.StringToHash("Jump");
-    static int attackState = Animator.StringToHash("Attack");
+   public static int JumpState = Animator.StringToHash("Jump");
+    public static int attackState = Animator.StringToHash("Attack");
+
+    public float vert = 0.0f;
+    public float hor = 0.0f;
+
+    public MoveState _movestate;
+    public IdleState _idlestate;
+    public JumpState _jumpstate;
+    public AttackState _attackstate;
+    public DeathState _deathState;
+    IState statePattern;
     // Start is called before the first frame update
     void Start()
     {
-
         bodyTransform = this.GetComponent<Transform>();
         rigidBody = this.GetComponent<Rigidbody>();
         bodyAnimator = this.GetComponent<Animator>();
 
+        _idlestate = new IdleState(this);
+        _movestate = new MoveState(this);
+        _jumpstate = new JumpState(this);
+        _attackstate = new AttackState(this);
+        _deathState = new DeathState(this);
+        SetState(_idlestate);
     }
 
     // Update is called once per frame
     void Update()
     {
         states = bodyAnimator.GetCurrentAnimatorStateInfo(0);
-        float vert = Input.GetAxis("Vertical");
-
-        float hor = Input.GetAxis("Horizontal");
-
-        if(vert  > 0.1f)
-        {
-            bodyAnimator.SetBool("Walk", true);
-        }
-        else
-        {
-            bodyAnimator.SetBool("Walk", false);
-
-        }
-
-        bodyTransform.Translate(new Vector3(0, 0, 0.1f) * Time.deltaTime * walkSpeed * vert);
-        bodyTransform.Rotate(new Vector3(0, 0.0000000001f, 0), hor * rotateSpeed);
+        vert = Input.GetAxis("Vertical");
+        hor = Input.GetAxis("Horizontal");
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            rigidBody.AddForce(new Vector3(0, 2, 0) * rotateForce);
-            bodyAnimator.SetBool("Jump", true);
-            
+            SetState(_jumpstate);
         }
-        if(states.shortNameHash == JumpState)
-        {
-            if(!bodyAnimator.IsInTransition(0))
-            {
-                bodyAnimator.SetBool("Jump", false);
-            }
-        }
+      
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            bodyAnimator.SetBool("Attack", true);
+            source.PlayOneShot(clip);
+            SetState(_attackstate);
         }
-        if (states.shortNameHash == attackState)
-        {
-            if (!bodyAnimator.IsInTransition(0))
-            {
-                bodyAnimator.SetBool("Attack", false);
-            }
-        }
+       
 
+        statePattern.update();
+    }
+
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+       if( collision.collider.tag == "Danger")
+        {
+            SetState(_deathState);
+            StartCoroutine(ExampleCoroutine());
+          
+        }
+    }
+
+    public void SetState(IState s)
+    {
+        statePattern = s;
+        statePattern.OnStateBegin();
+    }
+
+    IEnumerator ExampleCoroutine()
+    {
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(4);
+        SceneManager.LoadScene("SimpleNaturePack_Demo");
 
     }
+
 }
