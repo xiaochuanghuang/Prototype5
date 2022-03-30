@@ -7,7 +7,7 @@ public class Move : MonoBehaviour
 
     public AudioSource source;
     public AudioClip clip;
-
+    private Inventory inventory;
     public Transform bodyTransform { get; set; }
     public Rigidbody rigidBody { get; set; }
     public Animator bodyAnimator { get; set; }
@@ -45,7 +45,10 @@ public class Move : MonoBehaviour
         _deathState = new DeathState(this);
         SetState(_idlestate);
     }
-
+    private void Awake()
+    {
+        inventory = new Inventory();
+    }
     // Update is called once per frame
     void Update()
     {
