@@ -35,6 +35,9 @@ public class Move : MonoBehaviour
     public DeathState _deathState;
     IState statePattern;
     public InventoryUI inventoryUI;
+    bool InventoryOn;
+    bool PickItemOn;
+    Iitems item;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +51,8 @@ public class Move : MonoBehaviour
         _attackstate = new AttackState(this);
         _deathState = new DeathState(this);
         SetState(_idlestate);
+        InventoryOn = false;
+        PickItemOn = false;
     }
     private void Awake()
     {
@@ -73,6 +78,27 @@ public class Move : MonoBehaviour
        
 
         statePattern.update();
+
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+         if( InventoryOn == false)
+            {
+                GameObject.Find("InventoryUI").GetComponent<Canvas>().enabled = true;
+                InventoryOn = true;
+
+            }
+        else 
+            {
+                GameObject.Find("InventoryUI").GetComponent<Canvas>().enabled = false;
+                InventoryOn = false;
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.F)&& PickItemOn == true)
+        {
+            inventory.addItem(item);
+
+        }
+       
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -89,13 +115,27 @@ public class Move : MonoBehaviour
           
         }
 
-        Iitems item = collision.collider.GetComponent<Iitems>();
-        if (item != null )
+        if (collision.collider.tag == "PickUp" )
         {
+           
+            
+            item = collision.collider.GetComponent<Iitems>();
+            if (item != null)
+            {
+                PickItemOn = true;
+                Debug.Log(item);
+              
+            }
+            //GameObject.Find("InventoryUI").transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = true;
 
-            Debug.Log(item);
-            inventory.addItem(item);
-            //GameObject.Find("InventoryUI").transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().enabled;
+        }
+     
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.tag == "PickUp")
+        {
+            PickItemOn = false;
         }
     }
 

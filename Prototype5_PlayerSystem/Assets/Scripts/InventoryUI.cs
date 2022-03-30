@@ -13,10 +13,10 @@ public class InventoryUI : MonoBehaviour
 
     private void inventoryAddItem(object sender, InventoryEventArg e)
     {
-        Transform inventoryPanel = transform.Find("InventoryUI");
+        Transform inventoryPanel = transform.Find("List");
         foreach(Transform slot in inventoryPanel)
         {
-            Image i = slot.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+            Image i = slot.GetChild(0).GetComponent<Image>();
             if(!i.enabled)
             {
                 i.enabled = true;

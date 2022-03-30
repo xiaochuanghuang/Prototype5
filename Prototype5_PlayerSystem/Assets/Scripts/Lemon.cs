@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apple : MonoBehaviour, Iitems
+public class Lemon : MonoBehaviour, Iitems
 {
     public string Name
     {
         get
         {
-            return "Apple";
+            return "Lemon";
         }
     }
-
-
     public Sprite s;
     Sprite Iitems.Image
     {
@@ -21,7 +19,6 @@ public class Apple : MonoBehaviour, Iitems
             return s;
         }
     }
-
     public void OnPickUP()
     {
         gameObject.SetActive(false);

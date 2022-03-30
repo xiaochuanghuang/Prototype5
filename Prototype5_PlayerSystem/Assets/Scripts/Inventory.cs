@@ -19,7 +19,6 @@ public class Inventory : MonoBehaviour
             {
                 collide.enabled = false;
                 itemInstance.Add(item);
-                Debug.Log(item);
                 item.OnPickUP();
                 if (addedItems != null)
                 {
