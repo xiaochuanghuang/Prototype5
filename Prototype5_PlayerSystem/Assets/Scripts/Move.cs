@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class Move : MonoBehaviour
 {
+    
 
     public AudioSource source;
     public AudioClip clip;
-    private Inventory inventory;
+    public Inventory inventory;
     public Transform bodyTransform { get; set; }
     public Rigidbody rigidBody { get; set; }
     public Animator bodyAnimator { get; set; }
@@ -31,6 +34,7 @@ public class Move : MonoBehaviour
     public AttackState _attackstate;
     public DeathState _deathState;
     IState statePattern;
+    public InventoryUI inventoryUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +51,7 @@ public class Move : MonoBehaviour
     }
     private void Awake()
     {
-        inventory = new Inventory();
+       
     }
     // Update is called once per frame
     void Update()
@@ -71,7 +75,11 @@ public class Move : MonoBehaviour
         statePattern.update();
     }
 
-    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+      
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
        if( collision.collider.tag == "Danger")
@@ -79,6 +87,15 @@ public class Move : MonoBehaviour
             SetState(_deathState);
             StartCoroutine(ExampleCoroutine());
           
+        }
+
+        Iitems item = collision.collider.GetComponent<Iitems>();
+        if (item != null )
+        {
+
+            Debug.Log(item);
+            inventory.addItem(item);
+            //GameObject.Find("InventoryUI").transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().enabled;
         }
     }
 

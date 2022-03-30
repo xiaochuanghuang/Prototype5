@@ -1,14 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Items 
+
+public interface Iitems
 {
-  public enum itemTypes
+    string Name { get; }
+     Sprite Image { get; }
+
+     void OnPickUP();
+}
+public class InventoryEventArg : EventArgs
+{
+    public Iitems item;
+    public InventoryEventArg(Iitems item)
     {
-        Apple,
-        Lemon,
+        this.item = item;
     }
-    public itemTypes itemType;
-    public int amount;
+    
 }
