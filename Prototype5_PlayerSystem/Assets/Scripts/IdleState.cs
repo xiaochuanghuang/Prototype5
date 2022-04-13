@@ -21,8 +21,8 @@ public class IdleState : IState
     {
         Debug.Log("IdleState");
         o_player.bodyAnimator.SetBool("Walk", false);
-        o_player.bodyAnimator.SetBool("Jump", false);
-        o_player.bodyAnimator.SetBool("Attack", false);
+        //o_player.bodyAnimator.SetBool("Jump", false);
+        o_player.bodyAnimator.SetBool("Attack01", false);
       
     }
 }

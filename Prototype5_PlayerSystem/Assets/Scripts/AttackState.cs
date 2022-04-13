@@ -11,8 +11,9 @@ public class AttackState : IState
     public override void OnStateBegin()
     {
         Debug.Log("AttackState");
-        o_player.bodyAnimator.SetBool("Attack", true);
-        o_player.transform.Find("HitArea").gameObject.SetActive(true);
+        o_player.bodyAnimator.SetBool("Attack01", true);
+
+        //o_player.transform.Find("HitArea").gameObject.SetActive(true);
     }
 
     public override void update()
@@ -23,7 +24,7 @@ public class AttackState : IState
             {
 
                 o_player.SetState(o_player._idlestate);
-                o_player.transform.Find("HitArea").gameObject.SetActive(false);
+               // o_player.transform.Find("HitArea").gameObject.SetActive(false);
             }
         }
 

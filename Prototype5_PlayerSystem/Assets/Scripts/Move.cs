@@ -23,7 +23,7 @@ public class Move : MonoBehaviour
     static int idleState = Animator.StringToHash("Idle");
     static int moveState = Animator.StringToHash("Walk");
    public static int JumpState = Animator.StringToHash("Jump");
-    public static int attackState = Animator.StringToHash("Attack");
+    public static int attackState = Animator.StringToHash("Attack01");
 
     public float vert = 0.0f;
     public float hor = 0.0f;
