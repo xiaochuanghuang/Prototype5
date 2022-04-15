@@ -12,7 +12,7 @@ public class DeathState : IState
     public override void OnStateBegin()
     {
 
-        o_player.bodyAnimator.SetBool("Dead", true);
+        o_player.bodyAnimator.SetBool("Death", true);
 
     }
 

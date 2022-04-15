@@ -23,6 +23,7 @@ public class IdleState : IState
         o_player.bodyAnimator.SetBool("Walk", false);
         //o_player.bodyAnimator.SetBool("Jump", false);
         o_player.bodyAnimator.SetBool("Attack01", false);
-      
+        o_player.bodyAnimator.SetBool("Attack02", false);
+
     }
 }

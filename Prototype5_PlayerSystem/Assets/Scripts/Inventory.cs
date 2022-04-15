@@ -9,7 +9,8 @@ public class Inventory : MonoBehaviour
     private const int Slots = 6;
     private List<Iitems> itemInstance = new List<Iitems>();
     public event EventHandler<InventoryEventArg> addedItems;
-
+    public event EventHandler<InventoryEventArg> removeItems;
+    public event EventHandler<InventoryEventArg> useItems;
     public void addItem(Iitems item)
     {
       if(itemInstance.Count < Slots)
@@ -26,6 +27,25 @@ public class Inventory : MonoBehaviour
                 }
             }
            
+        }
+    }
+    public void removeItem(Iitems item)
+    {
+        if(itemInstance.Contains(item))
+        {
+            itemInstance.Remove(item);
+        }
+
+        if(removeItems != null)
+        {
+            removeItems(this, new InventoryEventArg(item));
+        }
+    }
+    public void useItem(Iitems item)
+    {
+        if (removeItems != null)
+        {
+            removeItems(this, new InventoryEventArg(item));
         }
     }
 }

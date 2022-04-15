@@ -24,6 +24,7 @@ public class Move : MonoBehaviour
     static int moveState = Animator.StringToHash("Walk");
    public static int JumpState = Animator.StringToHash("Jump");
     public static int attackState = Animator.StringToHash("Attack01");
+    public static int attack2State = Animator.StringToHash("Attack02");
 
     public float vert = 0.0f;
     public float hor = 0.0f;
@@ -32,6 +33,7 @@ public class Move : MonoBehaviour
     public IdleState _idlestate;
     public JumpState _jumpstate;
     public AttackState _attackstate;
+    public Attack2State _attack2state;
     public DeathState _deathState;
     IState statePattern;
     public InventoryUI inventoryUI;
@@ -50,6 +52,7 @@ public class Move : MonoBehaviour
         _jumpstate = new JumpState(this);
         _attackstate = new AttackState(this);
         _deathState = new DeathState(this);
+        _attack2state = new Attack2State(this);
         SetState(_idlestate);
         InventoryOn = false;
         PickItemOn = false;
@@ -69,10 +72,15 @@ public class Move : MonoBehaviour
         {
             SetState(_jumpstate);
         }
-      
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetMouseButtonDown(1))
         {
-            source.PlayOneShot(clip);
+           // source.PlayOneShot(clip);
+            SetState(_attack2state);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+           // source.PlayOneShot(clip);
             SetState(_attackstate);
         }
        
@@ -106,6 +114,7 @@ public class Move : MonoBehaviour
       
     }
 
+    
     private void OnCollisionEnter(Collision collision)
     {
        if( collision.collider.tag == "Danger")
