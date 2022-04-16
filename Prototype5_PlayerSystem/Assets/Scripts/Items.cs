@@ -10,6 +10,7 @@ public interface Iitems
      Sprite Image { get; }
 
      void OnPickUP();
+    void onUsed();
 }
 public class InventoryEventArg : EventArgs
 {
@@ -20,3 +21,4 @@ public class InventoryEventArg : EventArgs
     }
     
 }
+

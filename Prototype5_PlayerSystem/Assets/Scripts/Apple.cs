@@ -26,4 +26,9 @@ public class Apple : MonoBehaviour, Iitems
     {
         gameObject.SetActive(false);
     }
+
+    public void onUsed()
+    {
+        this.onUsed();
+    }
 }

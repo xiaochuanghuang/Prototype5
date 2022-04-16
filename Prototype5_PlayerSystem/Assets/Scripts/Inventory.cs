@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     private List<Iitems> itemInstance = new List<Iitems>();
     public event EventHandler<InventoryEventArg> addedItems;
     public event EventHandler<InventoryEventArg> removeItems;
-    public event EventHandler<InventoryEventArg> useItems;
+    //public event EventHandler<InventoryEventArg> useItems;
     public void addItem(Iitems item)
     {
       if(itemInstance.Count < Slots)

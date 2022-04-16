@@ -23,4 +23,9 @@ public class Lemon : MonoBehaviour, Iitems
     {
         gameObject.SetActive(false);
     }
+
+    public void onUsed()
+    {
+        this.onUsed();
+    }
 }

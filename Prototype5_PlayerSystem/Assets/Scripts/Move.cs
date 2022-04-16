@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,8 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    
 
+    public  float playerHealth = 100.0f;
     public AudioSource source;
     public AudioClip clip;
     public Inventory inventory;
@@ -47,6 +48,8 @@ public class Move : MonoBehaviour
         rigidBody = this.GetComponent<Rigidbody>();
         bodyAnimator = this.GetComponent<Animator>();
 
+        //inventory.useItems += Inventory_useItems; ;
+
         _idlestate = new IdleState(this);
         _movestate = new MoveState(this);
         _jumpstate = new JumpState(this);
@@ -55,8 +58,19 @@ public class Move : MonoBehaviour
         _attack2state = new Attack2State(this);
         SetState(_idlestate);
         InventoryOn = false;
+        //HealthSystem.currentHealth = playerHealth;
         PickItemOn = false;
     }
+
+    //private void Inventory_useItems(object sender, InventoryEventArg e)
+    //{
+    //    Iitems item = e.item;
+    //    if(item.Image.name == "apple")
+    //    {
+    //        Debug.Log("aaaaaaaaaaaaaaaaaa");
+    //    }
+    //}
+
     private void Awake()
     {
        
@@ -106,7 +120,13 @@ public class Move : MonoBehaviour
             inventory.addItem(item);
 
         }
-       
+        if (playerHealth == 0f)
+        {
+            SetState(_deathState);
+
+
+            StartCoroutine(ExampleCoroutine());
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -119,9 +139,9 @@ public class Move : MonoBehaviour
     {
        if( collision.collider.tag == "Danger")
         {
-            SetState(_deathState);
-            StartCoroutine(ExampleCoroutine());
-          
+            
+
+            playerHealth -= 10.0f;
         }
 
         if (collision.collider.tag == "PickUp" )
