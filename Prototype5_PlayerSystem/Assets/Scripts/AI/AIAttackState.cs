@@ -7,6 +7,7 @@ public class AIAttackState : AIState
     public CombatState combatState;
     public EnemyAttackAction[] enemyAttacks;
     public EnemyAttackAction currentAttack;
+
     public override AIState Tick(EnemyManager em, EnemyStats es, EnemyAnimationManager eam)
     {
         Vector3 targetDirection = em.character.transform.position - transform.position;
@@ -32,6 +33,7 @@ public class AIAttackState : AIState
                         eam.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
                         eam.anim.SetFloat("Horizontal", 0, 0.1f, Time.deltaTime);
                         eam.playAnimation(currentAttack.actionAnimation, true);
+                        em.hitArea.SetActive(true);
                         em.isPerformingAction = true;
                         em.currentRecoveryTime = currentAttack.recoveryTime;
                         currentAttack = null;
@@ -63,6 +65,7 @@ public class AIAttackState : AIState
                     && viewAbleAngle >= enemyAttackAction.minimumAttackAngle)
                 {
                     maxScore += enemyAttackAction.attackScore;
+                   
                 }
 
             }

@@ -11,7 +11,7 @@ public class EnemyStats : MonoBehaviour
     void Start()
     {
         maxHealth = SetMaxHealthFromHealthLevel();
-        currentHealth = maxHealth;
+       
     }
 
     private void Awake()
@@ -21,6 +21,10 @@ public class EnemyStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(maxHealth == 0)
+        {
+            this.gameObject.SetActive(false);
+        }
         
     }
 

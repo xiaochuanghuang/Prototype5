@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 97119978}
   - component: {fileID: 97119977}
   - component: {fileID: 97119979}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HitArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,9 +440,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 97119975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92fe1c4ef0141c44c924f4bbd0460195, type: 3}
+  m_Script: {fileID: 11500000, guid: 225df597de735e648ac41c31d2936d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 1369430907}
 --- !u!1 &107724389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8783306491908617939, guid: f02116c209ecd9e488fc4d2cd8996133, type: 3}
@@ -813,6 +814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92fe1c4ef0141c44c924f4bbd0460195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 244607620}
 --- !u!65 &138666382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3608,6 +3610,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100094, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -3646,7 +3652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400094, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.11
       objectReference: {fileID: 0}
     - target: {fileID: 400094, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4906,6 +4912,10 @@ PrefabInstance:
     - target: {fileID: 2066896392038628118, guid: 45288819fde2143449a96207b14db0bb, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2066896392038628118, guid: 45288819fde2143449a96207b14db0bb, type: 3}
+      propertyPath: m_TagString
+      value: Players
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45288819fde2143449a96207b14db0bb, type: 3}
@@ -6377,6 +6387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   isPerformingAction: 0
+  es: {fileID: 0}
   navmeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
   distanceFromTarget: 0
@@ -6391,6 +6402,7 @@ MonoBehaviour:
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50
   currentRecoveryTime: 0
+  hitArea: {fileID: 138666379}
 --- !u!114 &1369430908
 MonoBehaviour:
   m_ObjectHideFlags: 0

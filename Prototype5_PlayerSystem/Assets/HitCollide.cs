@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class HitCollide : MonoBehaviour
 {
+    public Move character;
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.tag == "Rock")
+        if(collision.collider.tag == "Players")
         {
-            collision.collider.gameObject.SetActive(false);
+ 
+            character.playerHealth -= 5f;
+            this.gameObject.SetActive(false);
 
         }
     }

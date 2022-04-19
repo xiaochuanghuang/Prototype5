@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     public  bool isPerformingAction;
     EnemyLocomotionManager elm;
     EnemyAnimationManager eam;
-    EnemyStats es;
+    public EnemyStats es;
     public NavMeshAgent navmeshAgent;
     public Rigidbody enemyRigidBody;
     public float distanceFromTarget;
@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
     public float maximumDetectionAngle = 50f;
 
     public float currentRecoveryTime = 0f;
+    public GameObject hitArea;
 
     void Start()
     {
