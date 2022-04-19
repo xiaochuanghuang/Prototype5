@@ -29,6 +29,7 @@ public class AIIdleState : AIState
         #region Handle Switch to
         if (em.character != null)
         {
+         
             return chasingState;
         }
         else

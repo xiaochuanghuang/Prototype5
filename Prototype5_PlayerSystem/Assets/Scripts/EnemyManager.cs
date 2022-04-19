@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -10,25 +10,40 @@ public class EnemyManager : MonoBehaviour
     EnemyLocomotionManager elm;
     EnemyAnimationManager eam;
     EnemyStats es;
+    public NavMeshAgent navmeshAgent;
+
     public AIState currentState;
     public EnemyAttackAction[] enemyAttacks;
     public EnemyAttackAction currentAttack;
+
+   public float distanceFromTarget;
+    //public float stoppingDistance = 0.5f;
+    public float rotationSpeed = 15.0f;
+    public float maximumAttackRange = 1.5f;
+
+    public Rigidbody enemyRigidBody;
+
     [Header("AI Settings")]
     public float detectionRadius = 20;
     public float minimumDetectionAngle = -50f;
     public float maximumDetectionAngle = 50f;
+    public float viewableAngle;
 
     public float currentRecoveryTime = 0f;
 
     void Start()
     {
-        
+        enemyRigidBody.isKinematic = false;
     }
     private void Awake()
     {
         elm = GetComponent<EnemyLocomotionManager>();
         eam = GetComponentInChildren<EnemyAnimationManager>();
         es = GetComponent<EnemyStats>();
+        navmeshAgent = GetComponentInChildren<NavMeshAgent>();
+        navmeshAgent.enabled = false;
+        enemyRigidBody = GetComponent<Rigidbody>();
+   
     }
     // Update is called once per frame
     void Update()
@@ -73,77 +88,6 @@ public class EnemyManager : MonoBehaviour
     {
         currentState = state;
     }    
-    #region Attacks
-
-    void AttackTarget()
-        {
-            //if (isPerformingAction)
-            //    return;
-
-
-            //if(currentAttack == null)
-            //{
-            //    GetNewAttack();
-            //}
-            //else
-            //{
-            //    isPerformingAction = true;
-            //    currentRecoveryTime = currentAttack.recoveryTime;
-            //    eam.playAnimation(currentAttack.actionAnimation, true);
-            //    currentAttack = null;
-            //}
-        }
-
-        void GetNewAttack()
-        {
-            //Vector3 targetDirection = elm.character.transform.position - transform.position;
-            //float viewAbleAngle = Vector3.Angle(targetDirection, transform.forward);
-            //elm.distanceFromTarget = Vector3.Distance(elm.character.transform.position, transform.position);
-
-            //int maxScore = 0;
-            //for(int i = 0;  i < enemyAttacks.Length;i++)
-            //{
-            //    EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-            //    if(elm.distanceFromTarget <= enemyAttackAction.maximumAttackAngle && viewAbleAngle >= enemyAttackAction.minimumAttackAngle)
-            //    {
-            //        if(viewAbleAngle <= enemyAttackAction.maximumAttackAngle
-            //            && viewAbleAngle>=enemyAttackAction.minimumAttackAngle)
-            //        {
-            //            maxScore += enemyAttackAction.attackScore;
-            //        }
-                    
-            //    }
-
-
-            //}
-            //int randomValue = Random.Range(0, maxScore);
-            //int temporaryScore = 0;
-
-            //for(int i = 0; i < enemyAttacks.Length;i++)
-            //{
-            //    EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-            //    if (elm.distanceFromTarget <= enemyAttackAction.maximumAttackAngle && viewAbleAngle >= enemyAttackAction.minimumAttackAngle)
-            //    {
-            //        if (viewAbleAngle <= enemyAttackAction.maximumAttackAngle
-            //            && viewAbleAngle >= enemyAttackAction.minimumAttackAngle)
-            //        {
-            //            if (currentAttack != null)
-            //                return;
-            //            temporaryScore += enemyAttackAction.attackScore;
-
-            //            if(temporaryScore > randomValue)
-            //            {
-            //                currentAttack = enemyAttackAction;
-            //            }
-            //        }
-
-            //    }
-            //}
-
-
-        }
-         
-        #endregion
    
 
     void handleRecoveryTimer()

@@ -6,7 +6,7 @@ public class EnemyAnimationManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public Animator anim;
-    EnemyLocomotionManager eam;
+    EnemyManager em;
     void Start()
     {
         
@@ -20,7 +20,7 @@ public class EnemyAnimationManager : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        eam = GetComponentInParent<EnemyLocomotionManager>();
+        em = GetComponentInParent<EnemyManager>();
     }
     public void playAnimation(string targetAnim, bool isInteracting)
     {
@@ -32,10 +32,10 @@ public class EnemyAnimationManager : MonoBehaviour
     private void OnAnimatorMove()
     {
         float delta = Time.deltaTime;
-        eam.enemyRigidBody.drag = 0;
+        em.enemyRigidBody.drag = 0;
         Vector3 deltaPosition = anim.deltaPosition;
         deltaPosition.y = 0;
         Vector3 velocity = deltaPosition / delta;
-        eam.enemyRigidBody.velocity = velocity;
+        em.enemyRigidBody.velocity = velocity;
     }
 }
