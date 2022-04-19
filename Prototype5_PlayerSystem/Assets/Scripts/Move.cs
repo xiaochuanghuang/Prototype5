@@ -16,6 +16,7 @@ public class Move : MonoBehaviour
     public Rigidbody rigidBody { get; set; }
     public Animator bodyAnimator { get; set; }
 
+    private int count = 0;
     public float walkSpeed = 0.1f;
     public float rotateSpeed = 0.001f;
     public float rotateForce = 0.01f;
@@ -82,6 +83,24 @@ public class Move : MonoBehaviour
         vert = Input.GetAxis("Vertical");
         hor = Input.GetAxis("Horizontal");
 
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("SimpleNaturePack_Demo");
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if(walkSpeed == 10f)
+            {
+                walkSpeed = 50f;
+            }
+            else
+            {
+                walkSpeed = 10f;
+            }
+        }
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             SetState(_jumpstate);
@@ -97,8 +116,11 @@ public class Move : MonoBehaviour
            // source.PlayOneShot(clip);
             SetState(_attackstate);
         }
-       
 
+        if (count == 6)
+        {
+            StartCoroutine(winCondition());
+        }
         statePattern.update();
 
         if(Input.GetKeyDown(KeyCode.Tab))
@@ -127,6 +149,7 @@ public class Move : MonoBehaviour
 
             StartCoroutine(ExampleCoroutine());
         }
+     
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -152,7 +175,9 @@ public class Move : MonoBehaviour
             if (item != null)
             {
                 PickItemOn = true;
-                Debug.Log(item);
+
+                count++;
+                Debug.Log(count);
               
             }
             //GameObject.Find("InventoryUI").transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = true;
@@ -180,6 +205,11 @@ public class Move : MonoBehaviour
         yield return new WaitForSeconds(4);
         SceneManager.LoadScene("SimpleNaturePack_Demo");
 
+    }
+    IEnumerator winCondition()
+    {
+        yield return new WaitForSeconds(4);
+        SceneManager.LoadScene("Win");
     }
 
 }
