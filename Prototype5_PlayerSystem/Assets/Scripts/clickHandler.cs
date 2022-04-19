@@ -17,7 +17,7 @@ public class clickHandler : MonoBehaviour
 
         //item.onUsed();
         _inventory.useItem(item);
-        if(item.Name == "Apple")
+        if(item.Name == "Apple"|| item.Name == "Lemon"|| item.Name == "Watermelon"|| item.Name == "Cherries"|| item.Name == "Strawberry")
         {
             player.playerHealth += 10f;
         }

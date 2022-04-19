@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public EnemyManager enemy;
+   
 
 
     private void OnCollisionEnter(Collision collision)
@@ -16,7 +16,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (collision.collider.tag == "Enemy")
         {
-            
+            var enemy = collision.gameObject.GetComponent<EnemyManager>();
             Debug.Log(collision.collider.tag);
             enemy.es.maxHealth -= 20;
         }
