@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: f485230ef0e6b584a987bb383c2d1738, type: 2}
+--- !u!1 &9702892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9702894}
+  - component: {fileID: 9702893}
+  m_Layer: 0
+  m_Name: CombatState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &9702893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9702892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eda4aa01157bde647b4eb909f0c3e059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackState: {fileID: 671375328}
+  chasingState: {fileID: 1451735835}
+--- !u!4 &9702894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9702892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2146968031}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &25798414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3270,6 +3315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfcaedccb79e094cb3b02f2508ef4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatState: {fileID: 9702893}
+  enemyAttacks:
+  - {fileID: 11400000, guid: 19809787489f9434fb64c617c55b5d0e, type: 2}
+  currentAttack: {fileID: 0}
 --- !u!1001 &674723165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4537,13 +4586,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046183160}
-  m_LocalRotation: {x: 0.112636454, y: -0.053191192, z: 0.013211681, w: 0.9921236}
-  m_LocalPosition: {x: 0.773, y: 2.458, z: -7.515}
+  m_LocalRotation: {x: 0.26491478, y: -0.050503623, z: 0.021289324, w: 0.96271306}
+  m_LocalPosition: {x: 0.66, y: 5.28, z: -6.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 244607619}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 12.997, y: -6.042, z: 0.837}
+  m_LocalEulerAnglesHint: {x: 30.812, y: -5.744, z: 0.95}
 --- !u!81 &1046183162
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4577,7 +4626,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 10
+  field of view: 25.1
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -6235,10 +6284,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   isPerformingAction: 0
+  navmeshAgent: {fileID: 0}
+  enemyRigidBody: {fileID: 0}
+  distanceFromTarget: 0
+  rotationSpeed: 15
+  maximumAttackRange: 1
   currentState: {fileID: 452962712}
   enemyAttacks:
   - {fileID: 11400000, guid: 19809787489f9434fb64c617c55b5d0e, type: 2}
   currentAttack: {fileID: 0}
+  viewableAngle: 0
   detectionRadius: 20
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50
@@ -6255,13 +6310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02dc70271413a7e49a5cfef088545453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRigidBody: {fileID: 0}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 64
-  distanceFromTarget: 0
-  stoppingDistance: 1
-  rotationSpeed: 25
 --- !u!114 &1369430909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6450,6 +6501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e236d94ff50d54494db704bd1ece62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatState: {fileID: 9702893}
 --- !u!4 &1451735836
 Transform:
   m_ObjectHideFlags: 0
@@ -8928,6 +8980,7 @@ Transform:
   - {fileID: 452962713}
   - {fileID: 1451735836}
   - {fileID: 671375327}
+  - {fileID: 9702894}
   m_Father: {fileID: 1369430905}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
