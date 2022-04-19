@@ -55,23 +55,6 @@ public class EnemyManager : MonoBehaviour
     }
     void handleStateMachine()
     {
-        //if(elm.character!=null)
-        //{
-        //    elm.distanceFromTarget = Vector3.Distance(elm.character.transform.position, transform.position);
-        //}
-      
-        //if (elm.character == null)
-        //{
-        //    elm.HandleDetection();
-        //}
-        //else if (elm.distanceFromTarget > elm.stoppingDistance)
-        //{
-        //    elm.HandleMoveToTarget();
-        //}
-        //else if (elm.distanceFromTarget <= elm.stoppingDistance)
-        //{
-        //    AttackTarget();
-        //}
         if(currentState != null)
         {
             AIState nextState = currentState.Tick(this,es,eam);

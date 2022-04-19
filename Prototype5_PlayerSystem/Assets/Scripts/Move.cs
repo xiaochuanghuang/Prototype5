@@ -107,13 +107,13 @@ public class Move : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-           // source.PlayOneShot(clip);
+           source.PlayOneShot(clip);
             SetState(_attack2state);
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-           // source.PlayOneShot(clip);
+           source.PlayOneShot(clip);
             SetState(_attackstate);
         }
 
