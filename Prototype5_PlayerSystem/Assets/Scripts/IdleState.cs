@@ -11,7 +11,7 @@ public class IdleState : IState
     public override void update()
     {
         //Debug.Log(o_player.vert);
-        if (o_player.vert > 0.1f)
+        if (o_player.vert != 0 || o_player.hor != 0)
         {
             o_player.SetState(o_player._movestate);
         }

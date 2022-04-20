@@ -16,6 +16,9 @@ public class Move : MonoBehaviour
     public Rigidbody rigidBody { get; set; }
     public Animator bodyAnimator { get; set; }
 
+    public Vector2 turn;
+    public float sensitivity = 0.5f;
+
     private int count = 0;
     public float walkSpeed = 0.1f;
     public float rotateSpeed = 0.001f;
@@ -61,6 +64,8 @@ public class Move : MonoBehaviour
         InventoryOn = false;
         //HealthSystem.currentHealth = playerHealth;
         PickItemOn = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     //private void Inventory_useItems(object sender, InventoryEventArg e)
@@ -101,9 +106,15 @@ public class Move : MonoBehaviour
             }
         }
 
+   
+            turn.x += Input.GetAxis("Mouse X") * sensitivity;
+            turn.y += Input.GetAxis("Mouse Y") * sensitivity;
+            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+       
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            SetState(_jumpstate);
+            //SetState(_jumpstate);
         }
         if (Input.GetMouseButtonDown(1))
         {
